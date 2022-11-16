@@ -14,13 +14,31 @@ const app = express()
 
 app.get('/hola', (peticion, respuesta) => {
     respuesta.json({
-        message: 'Hola mundo'
+        verb: peticion.method,
+        message: 'Hola mundo',
+        hola: 5,
+        active: false,
+        skills: ['JS', 'Go', 'Bash']
     })
 })
 
 app.delete('/hola', (peticion, respuesta) => {
+    console.log(peticion)
     respuesta.json({
-        message: 'Hola pero desde delete'
+        verb: peticion.method,
+        params: peticion.params,
+        body: peticion.body,
+        ip: peticion.ip
+    })
+})
+
+//? peticion -> request -> req
+//? respuesta -> response -> res
+
+app.get('/text/:mensaje', (req, res) => {
+    const mensaje= req.params.mensaje
+    res.json({
+        message: `Este es el mensaje por parametro: ${mensaje}`
     })
 })
 
